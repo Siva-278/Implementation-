@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+#define MAX_BOOKS 10
+
+// Function to search for a book ID in the array
+int searchBook(int bookList[], int numBooks, int target) {
+    int low = 0;
+    int high = numBooks - 1;
+
+    while (low <= high) {
+        int mid = (low + high) / 2;
+
+        // If the target matches the book ID at the middle position, return 1 (book found)
+        if (bookList[mid] == target) {
+            return 1;
+        }
+        // If the target is less than the book ID at the middle position, search in the left half
+        else if (target < bookList[mid]) {
+            high = mid - 1;
+        }
+        // If the target is greater than the book ID at the middle position, search in the right half
+        else {
+            low = mid + 1;
+        }
+    }
+
+    // Book not found
+    return 0;
+}
+
+int main() {
+    int bookList[MAX_BOOKS] = {101, 203, 305, 407, 509, 611, 713, 815, 917, 1021};
+    int numBooks = MAX_BOOKS;
+
+    int searchBookID;
+
+    printf("Enter the book ID to search: ");
+    scanf("%d", &searchBookID);
+
+    // Perform the search
+    if (searchBook(bookList, numBooks, searchBookID)) {
+        printf("Book with ID %d is available in the library.\n", searchBookID);
+    } else {
+        printf("Book with ID %d is not available in the library.\n", searchBookID);
+    }
+
+    return 0;
+}
